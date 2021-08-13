@@ -29,6 +29,39 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20210813163334_test.cs" />
+    <Compile Remove="Data\Migrations\20210813163334_test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813164115__test.cs" />
+    <Compile Remove="Data\Migrations\20210813164115__test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813164851__test.cs" />
+    <Compile Remove="Data\Migrations\20210813164851__test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813164909__test2.cs" />
+    <Compile Remove="Data\Migrations\20210813164909__test2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813165713__test.cs" />
+    <Compile Remove="Data\Migrations\20210813165713__test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813170350__test.cs" />
+    <Compile Remove="Data\Migrations\20210813170350__test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813171957__test.cs" />
+    <Compile Remove="Data\Migrations\20210813171957__test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813181155__test.cs" />
+    <Compile Remove="Data\Migrations\20210813181155__test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813181338__test2.cs" />
+    <Compile Remove="Data\Migrations\20210813181338__test2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813181715__test.cs" />
+    <Compile Remove="Data\Migrations\20210813181715__test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813183936_AddedContractModelWithConfiguration.cs" />
+    <Compile Remove="Data\Migrations\20210813183936_AddedContractModelWithConfiguration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813184025_AddedContractModelWithConfiguration.cs" />
+    <Compile Remove="Data\Migrations\20210813184025_AddedContractModelWithConfiguration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813185225_AddedContractModelWithConfiguration.cs" />
+    <Compile Remove="Data\Migrations\20210813185225_AddedContractModelWithConfiguration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813190023_AddedContractModelWithConfiguration.cs" />
+    <Compile Remove="Data\Migrations\20210813190023_AddedContractModelWithConfiguration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210813190147_AddedContractModelWithConfiguration.cs" />
+    <Compile Remove="Data\Migrations\20210813190147_AddedContractModelWithConfiguration.Designer.cs" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

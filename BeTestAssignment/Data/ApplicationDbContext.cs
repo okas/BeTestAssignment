@@ -18,13 +18,30 @@ namespace BeTestAssignment.Data
 
         public DbSet<Company> Companies { get; set; }
 
+        public DbSet<Contract> Contracts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
+            ConfigureContract(builder);
+
             SeedCompanies(builder);
 
             SeedUsers(builder);
+        }
+
+        private static void ConfigureContract(ModelBuilder builder)
+        {
+            builder.Entity<Contract>().HasOne(ctr => ctr.Company)
+                .WithMany(cmp => cmp.Contracts).HasForeignKey(ctr => ctr.CompanyId)
+                .IsRequired().OnDelete(DeleteBehavior.Restrict);
+            
+            builder.Entity<Contract>().HasOne(ctr => ctr.User)
+               .WithMany(usr => usr.Contracts).HasForeignKey(ctr => ctr.UserId)
+               .IsRequired().OnDelete(DeleteBehavior.Restrict);
+            
+            builder.Entity<Contract>().Property(ctr => ctr.Occupation).IsRequired();
         }
 
         private static void SeedUsers(ModelBuilder builder)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BeTestAssignment.Models
 {
@@ -13,5 +14,7 @@ namespace BeTestAssignment.Models
         public string CountryCode { get; set; }
 
         public string RegistryCode { get; set; }
+
+        public ICollection<Contract> Contracts { get; set; }
     }
 }
