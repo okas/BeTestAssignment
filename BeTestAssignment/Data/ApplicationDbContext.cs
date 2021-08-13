@@ -22,34 +22,9 @@ namespace BeTestAssignment.Data
         {
             base.OnModelCreating(builder);
 
-            ConfigureContractEntity(builder);
-
             SeedCompanies(builder);
 
             SeedUsers(builder);
-        }
-
-        private void ConfigureContractEntity(ModelBuilder builder)
-        {
-            // Compound PK
-            builder.Entity<Contract>().HasKey(c =>
-            new
-            {
-                c.CompanyId,
-                c.UserId
-            });
-
-            // Relationships: 2x 1..*
-            builder.Entity<Contract>()
-                .HasOne(ctr => ctr.Company)
-                .WithMany(cmp => cmp.Contracts)
-                .HasForeignKey(ctr => ctr.CompanyId);
-
-            builder.Entity<Contract>()
-               .HasOne(ctr => ctr.User)
-               .WithMany(cmp => cmp.Contracts)
-               .HasForeignKey(ctr => ctr.UserId);
-
         }
 
         private static void SeedUsers(ModelBuilder builder)
