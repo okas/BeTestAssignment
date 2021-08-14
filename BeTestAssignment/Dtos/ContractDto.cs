@@ -5,14 +5,6 @@ namespace BeTestAssignment.Dtos
 {
     public class ContractDto
     {
-        public ContractDto(Contract model)
-        {
-            Id = model.Id;
-            Occupation = model.Occupation;
-            StartDate = model.StartDate;
-            EndDate = model.EndDate;
-        }
-
         public Guid Id { get; set; }
 
         public string Occupation { get; set; }
