@@ -80,9 +80,15 @@ namespace BeTestAssignment.Controllers
         public async Task<ActionResult<ContractDto>> PostContract(ContractDto dto)
         {
             var model = _context.Contracts.Add(dto.ToModel()).Entity;
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetContract", new { id = model.Id }, dto);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+            return CreatedAtAction("GetContract", new { model.CompanyId, model.Id }, model.ToDTO());
         }
 
         private bool ContractExists(Guid id)
