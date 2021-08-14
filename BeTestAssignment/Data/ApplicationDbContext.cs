@@ -29,6 +29,8 @@ namespace BeTestAssignment.Data
             SeedCompanies(builder);
 
             SeedUsers(builder);
+
+            SeedContracts(builder);
         }
 
         private static void ConfigureContract(ModelBuilder builder)
@@ -36,11 +38,11 @@ namespace BeTestAssignment.Data
             builder.Entity<Contract>().HasOne(ctr => ctr.Company)
                 .WithMany(cmp => cmp.Contracts).HasForeignKey(ctr => ctr.CompanyId)
                 .IsRequired().OnDelete(DeleteBehavior.Restrict);
-            
+
             builder.Entity<Contract>().HasOne(ctr => ctr.User)
                .WithMany(usr => usr.Contracts).HasForeignKey(ctr => ctr.UserId)
                .IsRequired().OnDelete(DeleteBehavior.Restrict);
-            
+
             builder.Entity<Contract>().Property(ctr => ctr.Occupation).IsRequired();
         }
 
@@ -183,6 +185,20 @@ namespace BeTestAssignment.Data
                     RegistryCode = "123456"
                 }
             );
+        }
+
+        private static void SeedContracts(ModelBuilder builder)
+        {
+            builder.Entity<Contract>().HasData(
+                new Contract
+                {
+                    Id = new Guid("6b7a60ab-c380-4935-a3a9-626364ca3bc7"),
+                    Occupation = "Carpenter",
+                    StartDate = new DateTime(2021, 08, 2),
+                    EndDate = null,
+                    CompanyId = new Guid("88fb0b1b-ad3a-4991-98f6-4673263bca31"),
+                    UserId = "8c6a38f1-80b4-4625-affc-061837bee170",
+                });
         }
     }
 }
