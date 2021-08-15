@@ -35,14 +35,19 @@ namespace BeTestAssignment.Data
 
         private static void ConfigureContract(ModelBuilder builder)
         {
-            builder.Entity<Contract>().HasOne(ctr => ctr.Company)
-                .WithMany(cmp => cmp.Contracts).HasForeignKey(ctr => ctr.CompanyId)
-                .IsRequired().OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Contract>().HasOne(ctr => ctr.Company).WithMany(cmp => cmp.Contracts)
+                .HasForeignKey(ctr => ctr.CompanyId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Contract>().HasOne(ctr => ctr.User)
-               .WithMany(usr => usr.Contracts).HasForeignKey(ctr => ctr.UserId)
-               .IsRequired().OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Contract>().HasOne(ctr => ctr.User).WithMany(usr => usr.Contracts)
+                .HasForeignKey(ctr => ctr.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Contract>().HasIndex(ctr => ctr.CompanyId);
+            builder.Entity<Contract>().HasIndex(ctr => ctr.UserId);
+            builder.Entity<Contract>().HasIndex(ctr => new { ctr.CompanyId, ctr.UserId }).IsUnique();
             builder.Entity<Contract>().Property(ctr => ctr.Occupation).IsRequired();
         }
 
