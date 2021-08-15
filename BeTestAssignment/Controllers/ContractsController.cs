@@ -2,6 +2,7 @@
 using BeTestAssignment.Dtos;
 using BeTestAssignment.MapperExtensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -84,9 +85,13 @@ namespace BeTestAssignment.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                return BadRequest();
+                return HandleDbUpdateException(ex);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Some unexpected error occured. Sorry");
             }
             return CreatedAtAction("GetContract", new { model.CompanyId, model.Id }, model.ToDTO());
         }
@@ -94,6 +99,15 @@ namespace BeTestAssignment.Controllers
         private bool ContractExists(Guid id)
         {
             return _context.Contracts.Any(model => model.Id == id);
+        }
+
+        private ActionResult<ContractDto> HandleDbUpdateException(DbUpdateException ex)
+        {
+            var errorMessage = ex.InnerException.Message.Contains("duplicat", StringComparison.InvariantCultureIgnoreCase)
+                ? "Attempted to insert duplicate contract: only one Contract can exists between Company and User."
+                : ex.InnerException.Message;
+            ModelState.AddModelError("", errorMessage);
+            return BadRequest(ModelState);
         }
     }
 }
