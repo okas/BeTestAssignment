@@ -7,9 +7,22 @@ namespace BeTestAssignment.MapperExtensions
     {
         public static Contract ToModel(this ContractDto source)
         {
+            var model = ToModel(source);
+            model.Id = source.Id;
+            return model;
+        }
+
+        public static ContractDto ToDTO(this Contract source)
+        {
+            var model = (ContractDto)ToNewDTO(source);
+            model.Id = source.Id;
+            return model;
+        }
+
+        public static Contract ToModel(this ContractNewDto source)
+        {
             return new Contract
             {
-                Id = source.Id,
                 Occupation = source.Occupation,
                 StartDate = source.StartDate,
                 EndDate = source.EndDate,
@@ -18,11 +31,10 @@ namespace BeTestAssignment.MapperExtensions
             };
         }
 
-        public static ContractDto ToDTO(this Contract source)
+        public static ContractNewDto ToNewDTO(this Contract source)
         {
             return new ContractDto
             {
-                Id = source.Id,
                 Occupation = source.Occupation,
                 StartDate = source.StartDate,
                 EndDate = source.EndDate,

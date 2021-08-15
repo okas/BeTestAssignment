@@ -1,20 +1,12 @@
-﻿using BeTestAssignment.Models;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BeTestAssignment.Dtos
 {
-    public class ContractDto
+    public class ContractDto : ContractNewDto
     {
         public Guid Id { get; set; }
-
-        public string Occupation { get; set; }
-
-        public DateTime StartDate { get; set; }
-
-        public DateTime? EndDate { get; set; }
-
-        public Guid CompanyId { get; set; }
-
-        public string UserId { get; set; }
     }
 }

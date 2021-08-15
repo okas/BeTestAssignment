@@ -77,9 +77,9 @@ namespace BeTestAssignment.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ContractDto>> PostContract(ContractDto dto)
+        public async Task<ActionResult<ContractDto>> PostContract(ContractNewDto newDto)
         {
-            var model = _context.Contracts.Add(dto.ToModel()).Entity;
+            var model = _context.Contracts.Add(newDto.ToModel()).Entity;
             try
             {
                 await _context.SaveChangesAsync();
