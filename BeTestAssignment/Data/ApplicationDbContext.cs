@@ -1,4 +1,5 @@
 ﻿using System;
+using BeTestAssignment.Data.Configurations;
 using BeTestAssignment.Models;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
@@ -24,31 +25,13 @@ namespace BeTestAssignment.Data
         {
             base.OnModelCreating(builder);
 
-            ConfigureContract(builder);
+            builder.ApplyConfiguration(new ContractConfiguration());
 
             SeedCompanies(builder);
 
             SeedUsers(builder);
 
             SeedContracts(builder);
-        }
-
-        private static void ConfigureContract(ModelBuilder builder)
-        {
-            builder.Entity<Contract>().HasOne(ctr => ctr.Company).WithMany(cmp => cmp.Contracts)
-                .HasForeignKey(ctr => ctr.CompanyId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Contract>().HasOne(ctr => ctr.User).WithMany(usr => usr.Contracts)
-                .HasForeignKey(ctr => ctr.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Contract>().HasIndex(ctr => ctr.CompanyId);
-            builder.Entity<Contract>().HasIndex(ctr => ctr.UserId);
-            builder.Entity<Contract>().HasIndex(ctr => new { ctr.CompanyId, ctr.UserId }).IsUnique();
-            builder.Entity<Contract>().Property(ctr => ctr.Occupation).IsRequired();
         }
 
         private static void SeedUsers(ModelBuilder builder)
