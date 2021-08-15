@@ -41,6 +41,8 @@ namespace BeTestAssignment
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
+            services.AddRouting(opts => opts.LowercaseUrls = opts.LowercaseQueryStrings = true);
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
