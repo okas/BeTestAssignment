@@ -33,6 +33,9 @@ namespace BeTestAssignment.Controllers
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Get Contract sub-resource by Company and Contract Ids.
+        /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<ContractDto>> GetContract(Guid companyId, Guid id)
         {
@@ -77,6 +80,12 @@ namespace BeTestAssignment.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Creates a Contract
+        /// </summary>
+        /// <returns>A newly created Contract</returns>
+        /// <response code="201">Returns the newly created item.</response>
+        /// <response code="400">Returns error, if Contract is duplicate, meaning that combination `companyID` and `userId` already exists.</response> 
         [HttpPost]
         public async Task<ActionResult<ContractDto>> PostContract(ContractNewDto newDto)
         {

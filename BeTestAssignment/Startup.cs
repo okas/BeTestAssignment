@@ -1,9 +1,11 @@
 using System.Linq;
+using System.Reflection;
 using BeTestAssignment.Data;
 using BeTestAssignment.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSwag;
 
+[assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace BeTestAssignment
 {
     public class Startup
@@ -49,6 +52,8 @@ namespace BeTestAssignment
 
             services.AddSwaggerDocument(settings =>
             {
+                settings.Title = $"{Assembly.GetExecutingAssembly().GetName().Name} API";
+
                 settings.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
                     Type = OpenApiSecuritySchemeType.ApiKey,
@@ -85,7 +90,9 @@ namespace BeTestAssignment
             app.UseAuthorization();
 
             app.UseOpenApi();
-            app.UseSwaggerUi3();
+            app.UseSwaggerUi3(cfg=> { 
+                cfg.DocumentTitle = $"{Assembly.GetExecutingAssembly().GetName().Name} API";
+            });
 
             app.UseEndpoints(endpoints =>
             {
