@@ -12,9 +12,13 @@ using System.Threading.Tasks;
 
 namespace BeTestAssignment.Controllers
 {
+    /// <summary>
+    /// Sub-resource of /api/companies
+    /// </summary>
     [Route("api/companies/{companyId}/[controller]")]
     [ApiController]
     [Authorize]
+    [Produces("application/json")]
     public class ContractsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -33,6 +37,9 @@ namespace BeTestAssignment.Controllers
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Get Contract sub-resource by Company and Contract Ids.
+        /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<ContractDto>> GetContract(Guid companyId, Guid id)
         {
@@ -77,7 +84,15 @@ namespace BeTestAssignment.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Creates a Contract
+        /// </summary>
+        /// <returns>A newly created Contract</returns>
+        /// <response code="201">Returns the newly created item.</response>
+        /// <response code="400">Returns error, if Contract is duplicate, meaning that combination `companyID` and `userId` already exists.</response> 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ContractDto>> PostContract(ContractNewDto newDto)
         {
             var model = _context.Contracts.Add(newDto.ToModel()).Entity;
