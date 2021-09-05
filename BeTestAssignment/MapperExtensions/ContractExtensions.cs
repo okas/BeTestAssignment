@@ -7,7 +7,7 @@ namespace BeTestAssignment.MapperExtensions
     {
         public static Contract ToModel(this ContractDto source)
         {
-            var model = ToModel(source);
+            var model = ToModel(source as ContractNewDto);
             model.Id = source.Id;
             return model;
         }
